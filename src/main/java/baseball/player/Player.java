@@ -36,4 +36,13 @@ public class Player {
         input.clear();
         input.addAll(set);
     }
+
+    public boolean restartOrExit() {
+        String s = Console.readLine().trim();
+
+        if (s.equals("1")) return true;
+        if (s.equals("2")) return false;
+
+        throw new IllegalArgumentException("1 또는 2만 입력할 수 있습니다.");
+    }
 }
