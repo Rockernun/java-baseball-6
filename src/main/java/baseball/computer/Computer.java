@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Computer {
 
-    private List<Integer> numbers = generate();
+    private List<Integer> numbers;
 
     public void reset() {
         numbers = generate();
