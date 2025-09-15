@@ -1,15 +1,15 @@
 package baseball.player;
 
+import camp.nextstep.edu.missionutils.Console;
 import java.util.*;
 
 public class Player {
 
-    private final Scanner scanner = new Scanner(System.in);
     public final List<Integer> input = new ArrayList<>();
 
     public void inputThreeDistinctDigits() {
         System.out.print("숫자를 입력해주세요: ");
-        String line = scanner.nextLine().trim();
+        String line = Console.readLine().trim();   // Scanner 대신 Console 사용
         String[] parts = line.split("\\s+");
 
         if (parts.length != 3) {
@@ -17,7 +17,6 @@ public class Player {
         }
 
         Set<Integer> set = new LinkedHashSet<>(); // 입력 순서 유지
-
         for (String part : parts) {
             final int n;
             try {
