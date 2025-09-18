@@ -8,7 +8,7 @@ public class Player implements Participant {
     public final List<Integer> input = new ArrayList<>();
 
     @Override
-    public void inputDistinctDigits() {
+    public List<Integer> inputDistinctDigits() {
         String line = Console.readLine().trim();
 
         if (!line.matches("^[1-9]{3}$")) {
@@ -27,14 +27,18 @@ public class Player implements Participant {
 
         input.clear();
         input.addAll(values);
+
+        return input;
     }
 
-    public boolean restartOrExit() {
+    @Override
+    public boolean goOrStop() {
         String s = Console.readLine().trim();
 
-        if (s.equals("1")) return true;
-        if (s.equals("2")) return false;
-
-        throw new IllegalArgumentException("1 또는 2만 입력할 수 있습니다.");
+        return switch (s) {
+            case "1" -> true;
+            case "2" -> false;
+            default  -> throw new IllegalArgumentException("1 또는 2만 입력할 수 있습니다.");
+        };
     }
 }
