@@ -5,18 +5,37 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Computer {
+public class Computer implements Machine {
 
+    private static final int SIZE = 3;
+    private static final int MIN = 1;
+    private static final int MAX = 9;
+
+    // 선택한 임의의 수 3개
     private List<Integer> numbers;
 
+    @Override
     public void reset() {
         numbers = generate();
     }
 
+    @Override
+    public List<Integer> generate() {
+        List<Integer> computer = new ArrayList<>(SIZE);
+        while (computer.size() < SIZE) {
+            int randomNumber = Randoms.pickNumberInRange(MIN, MAX);
+            if (!computer.contains(randomNumber)) {
+                computer.add(randomNumber);
+            }
+        }
+        return computer;
+    }
+
+    @Override
     public Score judge(List<Integer> guess) {
         int strike = 0;
         int ball = 0;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < SIZE; i++) {
             int g = guess.get(i);
             if (g == numbers.get(i)) {
                 strike++;
@@ -27,36 +46,6 @@ public class Computer {
         }
 
         return new Score(strike, ball);
-
-    }
-
-    private List<Integer> generate() {
-        List<Integer> computer = new ArrayList<>();
-        while (computer.size() < 3) {
-            int randomNumber = Randoms.pickNumberInRange(1, 9);
-            if (!computer.contains(randomNumber)) {
-                computer.add(randomNumber);
-            }
-        }
-        return computer;
-    }
-
-    public static final class Score {
-        public final int strike;
-        public final int ball;
-
-        public Score(int strike, int ball) {
-            this.strike = strike;
-            this.ball = ball;
-        }
-
-        public boolean isWin() {
-            return strike == 3;
-        }
-
-        public boolean isNothing() {
-            return strike == 0 && ball == 0;
-        }
 
     }
 }
