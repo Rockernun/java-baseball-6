@@ -3,12 +3,12 @@ package baseball.player;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.*;
 
-public class Player {
+public class Player implements Participant {
 
     public final List<Integer> input = new ArrayList<>();
 
-    public void inputThreeDistinctDigits() {
-        System.out.print("숫자를 입력해주세요 : ");
+    @Override
+    public void inputDistinctDigits() {
         String line = Console.readLine().trim();
 
         if (!line.matches("^[1-9]{3}$")) {
