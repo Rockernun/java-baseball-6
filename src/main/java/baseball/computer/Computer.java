@@ -45,7 +45,7 @@ public class Computer implements Machine {
             }
         }
 
-        return new Score(strike, ball);
+        return new Score(strike, ball, numbers.size());
 
     }
 }

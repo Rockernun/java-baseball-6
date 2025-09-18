@@ -1,9 +1,9 @@
 package baseball.computer;
 
-public record Score(int strike, int ball) {
+public record Score(int strike, int ball, int totalDigits) {
 
     public boolean isWin() {
-        return strike == 3;
+        return strike == totalDigits;
     }
 
     public boolean isNothing() {
