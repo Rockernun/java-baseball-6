@@ -14,7 +14,7 @@ public class Application {
         GameRules rules = new GameRules(3, 1, 9);
         Player player = new Player(rules);
         Machine computer = new Computer(rules);
-        GameMediator mediator = new DefaultGameMediator(computer, player);
+        GameMediator mediator = new DefaultGameMediator(rules, computer, player);
 
         mediator.start();
     }

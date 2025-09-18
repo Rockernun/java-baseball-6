@@ -2,22 +2,26 @@ package baseball.mediator;
 
 import baseball.computer.Machine;
 import baseball.computer.Score;
+import baseball.exception.GameRules;
 import baseball.player.Participant;
 
 import java.util.List;
 
 public class DefaultGameMediator implements GameMediator {
 
+    private final GameRules rules;
     private final Machine machine;
     private final Participant participant;
 
-    public DefaultGameMediator(Machine machine, Participant participant) {
+    public DefaultGameMediator(GameRules rules, Machine machine, Participant participant) {
+        this.rules = rules;
         this.machine = machine;
         this.participant = participant;
     }
 
     @Override
     public void start() {
+        int size = rules.size();
         machine.reset();
         System.out.println("숫자 야구 게임을 시작합니다!");
         while (true) {
@@ -32,7 +36,7 @@ public class DefaultGameMediator implements GameMediator {
             }
 
             if (score.isWin()) {
-                System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+                System.out.printf("%d개의 숫자를 모두 맞히셨습니다! 게임 종료", size);
 
                 if (restartOrExit()) {
                     machine.reset();
