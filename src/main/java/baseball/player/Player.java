@@ -1,23 +1,36 @@
 package baseball.player;
 
+import baseball.exception.GameRules;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.*;
 
 public class Player implements Participant {
 
+    private final GameRules rules;
     public final List<Integer> input = new ArrayList<>();
+
+    public Player(GameRules rules) {
+        this.rules = rules;
+    }
 
     @Override
     public List<Integer> inputDistinctDigits() {
         String line = Console.readLine().trim();
 
-        if (!line.matches("^[1-9]{3}$")) {
-            throw new IllegalArgumentException("공백 없이 1~9 숫자 3자리를 입력해야 합니다.");
+        int size = rules.size();
+        int min  = rules.min();
+        int max  = rules.max();
+
+        String pattern = String.format("^[%d-%d]{%d}$", min, max, size);
+        if (!line.matches(pattern)) {
+            throw new IllegalArgumentException(
+                    String.format("공백 없이 %d~%d 숫자 %d자리를 입력해야 합니다.", min, max, size)
+            );
         }
 
         List<Integer> values = new ArrayList<>();
         Set<Integer> unique = new HashSet<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < size; i++) {
             int n = line.charAt(i) - '0';
             values.add(n);
             if (!unique.add(n)) {

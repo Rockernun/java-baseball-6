@@ -1,5 +1,6 @@
 package baseball.computer;
 
+import baseball.exception.GameRules;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
@@ -7,12 +8,14 @@ import java.util.List;
 
 public class Computer implements Machine {
 
-    private static final int SIZE = 3;
-    private static final int MIN = 1;
-    private static final int MAX = 9;
+    private final GameRules rules;
 
     // 선택한 임의의 수 3개
     private List<Integer> numbers;
+
+    public Computer(GameRules rules) {
+        this.rules = rules;
+    }
 
     @Override
     public void reset() {
@@ -21,9 +24,14 @@ public class Computer implements Machine {
 
     @Override
     public List<Integer> generate() {
-        List<Integer> computer = new ArrayList<>(SIZE);
-        while (computer.size() < SIZE) {
-            int randomNumber = Randoms.pickNumberInRange(MIN, MAX);
+
+        int size = rules.size();
+        int max = rules.max();
+        int min = rules.min();
+
+        List<Integer> computer = new ArrayList<>(size);
+        while (computer.size() < size) {
+            int randomNumber = Randoms.pickNumberInRange(min, max);
             if (!computer.contains(randomNumber)) {
                 computer.add(randomNumber);
             }
@@ -33,9 +41,12 @@ public class Computer implements Machine {
 
     @Override
     public Score judge(List<Integer> guess) {
+
+        int size = rules.size();
+
         int strike = 0;
         int ball = 0;
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < size; i++) {
             int g = guess.get(i);
             if (g == numbers.get(i)) {
                 strike++;
