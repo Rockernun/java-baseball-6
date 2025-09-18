@@ -1,6 +1,8 @@
 package baseball;
 
 import baseball.computer.Computer;
+import baseball.computer.Machine;
+import baseball.computer.Score;
 import baseball.player.Player;
 import camp.nextstep.edu.missionutils.Console;
 
@@ -8,7 +10,7 @@ public class Application {
 
     public static void main(String[] args) {
         Player player = new Player();
-        Computer computer = new Computer();
+        Machine computer = new Computer();
 
         try {
             while (true) {
@@ -17,12 +19,12 @@ public class Application {
 
                 while (true) {
                     player.inputThreeDistinctDigits();
-                    Computer.Score score = computer.judge(player.input);
+                    Score score = computer.judge(player.input);
 
                     if (score.isNothing()) {
                         System.out.println("낫싱");
                     } else {
-                        System.out.printf("%d볼 %d스트라이크%n", score.ball, score.strike);
+                        System.out.printf("%d볼 %d스트라이크%n", score.ball(), score.strike());
                     }
 
                     if (score.isWin()) {
